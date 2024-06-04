@@ -1,5 +1,6 @@
-package com.example.designify.ui.navbar
+package com.example.designify.ui.user.navbar
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +12,12 @@ import com.example.designify.data.response.UrlResponse
 import com.example.designify.data.retrofit.ApiConfig
 import com.example.designify.databinding.FragmentHomeBinding
 import com.example.designify.ui.adapter.PhotoAdapter
+import com.example.designify.ui.user.DetailActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), PhotoAdapter.OnItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -31,7 +33,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val clientId = "YmFxFi2ZVCLDRx9tZV0bvdhERr6FrTzWhCmYGruJF8U"
-        val count = 30
+        val count = 15
 
         val client = ApiConfig.getAPIService()
         client.getRandomPhoto(clientId, count).enqueue(object : Callback<ArrayList<UrlResponse>> {
@@ -45,7 +47,9 @@ class HomeFragment : Fragment() {
                     with(binding) {
                         rvPhoto.setHasFixedSize(true)
                         rvPhoto.layoutManager= GridLayoutManager(requireContext(), 2)
-                        rvPhoto.adapter = PhotoAdapter(photoList)
+                        rvPhoto.adapter = PhotoAdapter(photoList).apply {
+                            listener = this@HomeFragment
+                        }
                     }
                 } else {
                     Toast.makeText(requireContext(), "onResponse: FAILURE!", Toast.LENGTH_SHORT).show()
@@ -56,5 +60,11 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireContext(), "onFailure: FAILURE!", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    override fun onItemClicked(item: UrlResponse) {
+        val intent = Intent(requireActivity(), DetailActivity::class.java)
+        intent.putExtra("content", item)
+        startActivity(intent)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.designify.ui
+package com.example.designify.ui.user
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".ui.navbar.ProfileFragment">
+    tools:context=".ui.user.navbar.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

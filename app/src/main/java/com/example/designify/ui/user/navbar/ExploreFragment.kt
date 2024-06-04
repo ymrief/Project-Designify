@@ -1,4 +1,4 @@
-package com.example.designify.ui.navbar
+package com.example.designify.ui.user.navbar
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

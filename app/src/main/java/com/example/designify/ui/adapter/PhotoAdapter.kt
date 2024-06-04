@@ -9,6 +9,9 @@ import com.example.designify.databinding.ItemPhotoBinding
 
 class PhotoAdapter(private val photosList: ArrayList<UrlResponse>)
     : RecyclerView.Adapter<PhotoAdapter.CustomViewHolder>() {
+
+    lateinit var listener: OnItemClickListener
+
     inner class CustomViewHolder(private val binding: ItemPhotoBinding)
         : RecyclerView.ViewHolder(binding.root) {
         fun bind(photo: UrlResponse) {
@@ -32,5 +35,12 @@ class PhotoAdapter(private val photosList: ArrayList<UrlResponse>)
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.bind(photosList[position])
+        holder.itemView.setOnClickListener {
+            listener.onItemClicked(photosList[position])
+        }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClicked(item: UrlResponse)
     }
 }
