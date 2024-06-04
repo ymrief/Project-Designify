@@ -33,7 +33,7 @@ class HomeFragment : Fragment(), PhotoAdapter.OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         val clientId = "YmFxFi2ZVCLDRx9tZV0bvdhERr6FrTzWhCmYGruJF8U"
-        val count = 15
+        val count = 20
 
         val client = ApiConfig.getAPIService()
         client.getRandomPhoto(clientId, count).enqueue(object : Callback<ArrayList<UrlResponse>> {
