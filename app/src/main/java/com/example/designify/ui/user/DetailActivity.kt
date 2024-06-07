@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.designify.R
 import com.example.designify.data.response.UrlResponse
+import com.example.designify.data.retrofit.ApiConfig
 import com.example.designify.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
@@ -32,6 +33,8 @@ class DetailActivity : AppCompatActivity() {
             UrlResponse::class.java
         ) as UrlResponse
 
+
+
         with(binding) {
             Glide.with(this@DetailActivity)
                 .load(photo.urls.regular)
@@ -41,7 +44,11 @@ class DetailActivity : AppCompatActivity() {
             tvCreatedAt.text = "Created at: ${photo.createdAt ?: "Unknown"}"
             tvLikes.text = "Likes: ${photo.likes ?: "Unknown"}"
             tvDownloads.text = "Downloads: ${photo.downloads ?: "Unknown"}"
+
             btnDownload.setOnClickListener() {
+//                ERROR
+//                val clientId = "YmFxFi2ZVCLDRx9tZV0bvdhERr6FrTzWhCmYGruJF8U"
+//                ApiConfig.getAPIService().downloadPhoto()
                 Toast.makeText(this@DetailActivity, "Downloading", Toast.LENGTH_SHORT).show()
             }
         }

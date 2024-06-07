@@ -14,9 +14,16 @@ interface ApiService {
         @Query("count") count: Int
     ): Call<ArrayList<UrlResponse>>
 
-    @GET("photos/{id}/download")
+    @GET("photos/:id/download")
     fun downloadPhoto(
-        @Path("id") id: String
+        @Path("id") id: String,
+        @Query("client_id") clientId: String
     ): Call<ArrayList<UrlResponse>>
 
+    @GET("search/photos")
+    fun searchPhoto(
+        @Query("client_id") clientId: String,
+        @Query("query") query: String,
+        @Query("count") count: Int
+    ): Call<ArrayList<UrlResponse>>
 }
