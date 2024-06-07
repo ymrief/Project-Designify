@@ -19,7 +19,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="65dp"
                 android:layout_alignParentStart="true"
                 android:background="@color/white"
                 android:gravity="center"
@@ -36,6 +36,7 @@
                     android:layout_height="wrap_content"
                     android:text="Selamat Datang, "
                     android:textSize="20dp"
+                    android:fontFamily="@font/marcellus"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nama"
                     android:textSize="20dp"
+                    android:fontFamily="@font/marcellus"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tv_welcome"
                     app:layout_constraintTop_toTopOf="parent" />
