@@ -24,11 +24,13 @@ class ProfileFragment : Fragment() {
 //        super.onViewCreated(view, savedInstanceState)
 //
 //        val username = arguments?.getString("username")
+//        val totalDownload = arguments?.getString("totalDownload")
 //
 //        Log.d("ProfileFragment", "Username: $username")
 //
 //        with(binding) {
 //            tvUsername.text = username
+//            tvTotalDownloads.text = totalDownload
 //        }
 //    }
 }

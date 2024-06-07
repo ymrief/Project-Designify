@@ -16,6 +16,8 @@ import com.example.designify.databinding.ActivityDetailBinding
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
+
+    val clientId = "YmFxFi2ZVCLDRx9tZV0bvdhERr6FrTzWhCmYGruJF8U"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
@@ -33,8 +35,6 @@ class DetailActivity : AppCompatActivity() {
             UrlResponse::class.java
         ) as UrlResponse
 
-
-
         with(binding) {
             Glide.with(this@DetailActivity)
                 .load(photo.urls.regular)
@@ -46,9 +46,7 @@ class DetailActivity : AppCompatActivity() {
             tvDownloads.text = "Downloads: ${photo.downloads ?: "Unknown"}"
 
             btnDownload.setOnClickListener() {
-//                ERROR
-//                val clientId = "YmFxFi2ZVCLDRx9tZV0bvdhERr6FrTzWhCmYGruJF8U"
-//                ApiConfig.getAPIService().downloadPhoto()
+                ApiConfig.getAPIService().downloadPhoto(id = photo.id.toString(), clientId = clientId)
                 Toast.makeText(this@DetailActivity, "Downloading", Toast.LENGTH_SHORT).show()
             }
         }

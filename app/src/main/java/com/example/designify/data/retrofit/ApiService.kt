@@ -1,5 +1,6 @@
 package com.example.designify.data.retrofit
 
+import com.example.designify.data.response.SearchResponse
 import com.example.designify.data.response.UrlResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -14,7 +15,7 @@ interface ApiService {
         @Query("count") count: Int
     ): Call<ArrayList<UrlResponse>>
 
-    @GET("photos/:id/download")
+    @GET("photos/{id}/download")
     fun downloadPhoto(
         @Path("id") id: String,
         @Query("client_id") clientId: String
@@ -25,5 +26,5 @@ interface ApiService {
         @Query("client_id") clientId: String,
         @Query("query") query: String,
         @Query("count") count: Int
-    ): Call<ArrayList<UrlResponse>>
+    ): Call<SearchResponse>
 }
