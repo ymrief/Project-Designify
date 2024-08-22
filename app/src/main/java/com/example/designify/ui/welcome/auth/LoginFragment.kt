@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.designify.R
+import com.example.designify.data.DatabaseHelper
 import com.example.designify.databinding.FragmentLoginBinding
 import com.example.designify.ui.user.DashboardActivity
 import com.google.android.material.snackbar.Snackbar
 
 class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var databaseHelper: DatabaseHelper
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,6 +27,8 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        databaseHelper = DatabaseHelper(requireContext())
 
         var username = arguments?.getString("username")
         var password = arguments?.getString("password")
@@ -51,13 +56,30 @@ class LoginFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 } else {
-                    val intent = Intent(requireContext(), DashboardActivity::class.java).apply {
-                        putExtra("username", username)
-                        putExtra("password", password)
-                    }
-                    startActivity(intent)
+                    signinDatabase(username!!, password!!)
                 }
             }
+        }
+    }
+
+    private fun signinDatabase(username: String, password: String) {
+        val userExists = databaseHelper.readUser(username, password)
+        if (userExists) {
+            Snackbar.make(
+                requireView(),
+                "Login berhasil!",
+                Snackbar.LENGTH_SHORT
+            ).show()
+            val intent = Intent(requireContext(), DashboardActivity::class.java).apply {
+                putExtra("username", username)
+            }
+            startActivity(intent)
+        } else {
+            Snackbar.make(
+                requireView(),
+                "Login gagal!",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 }

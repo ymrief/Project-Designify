@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.designify.R
+import com.example.designify.data.DatabaseHelper
 import com.example.designify.databinding.FragmentRegisterBinding
 import com.google.android.material.snackbar.Snackbar
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
+    private lateinit var databaseHelper: DatabaseHelper
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
@@ -22,6 +25,8 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        databaseHelper = DatabaseHelper(requireContext())
 
         with(binding) {
             btnRegister.setOnClickListener {
@@ -36,6 +41,9 @@ class RegisterFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 } else if (password == confirmPassword) {
+
+                    signupDatabase(username, password)
+
                     val bundle = Bundle().apply {
                         putString("username", username)
                         putString("password", password)
@@ -63,6 +71,23 @@ class RegisterFragment : Fragment() {
                     .addToBackStack(null)
                     .commit()
             }
+        }
+    }
+
+    private fun signupDatabase(username: String, password: String) {
+        val insertedRowId = databaseHelper.insertUser(username, password)
+        if (insertedRowId != -1L) {
+            Snackbar.make(
+                requireView(),
+                "User berhasil ditambahkan ke database",
+                Snackbar.LENGTH_SHORT
+            ).show()
+        } else {
+            Snackbar.make(
+                requireView(),
+                "Gagal menambahkan user ke database",
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 }

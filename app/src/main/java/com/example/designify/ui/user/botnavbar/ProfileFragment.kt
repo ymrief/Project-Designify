@@ -19,19 +19,19 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        val username = arguments?.getString("username")
+        binding.tvUsername.text = username
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val username = arguments?.getString("username")
         val totalDownload = arguments?.getString("totalDownload")
 
-        Log.d("ProfileFragment", "Username: $username")
-
         with(binding) {
-            tvUsername.text = username ?: "Default Username"
             tvNum.text = totalDownload ?: 0.toString()
 
             btnLogout.setOnClickListener {

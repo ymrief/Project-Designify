@@ -31,33 +31,15 @@ class DashboardActivity : AppCompatActivity() {
 
         with (binding) {
             val navHostFragment = supportFragmentManager.findFragmentById(fcvMain.id) as NavHostFragment
-            bnvMain.setupWithNavController(navHostFragment.navController)
+            val navController = navHostFragment.navController
 
-//            Method 2 (ERROR)
-//            bnvMain.setOnClickListener {
-//                val bundle = Bundle().apply {
-//                    putString("username", username)
-//                }
-//                ProfileFragment().apply {
-//                    arguments = bundle
-//                }
-//            }
-
-//            Method 1 (ERROR)
-//            Log.d("DashboardActivity", "Username: $username")
-//
-//            val navController = navHostFragment.navController
-//
-//            bnvMain.setOnNavigationItemSelectedListener { item ->
-//                val bundle = Bundle()
-//                bundle.putString("username", username)
-//
-//                navController.navigate(item.itemId, bundle)
-//
-//                true
-//            }
-//
-//            bnvMain.setupWithNavController(navController)
+            bnvMain.setOnItemSelectedListener { item ->
+                val bundle = Bundle().apply {
+                    putString("username", username)
+                }
+                navController.navigate(item.itemId, bundle)
+                true
+            }
         }
     }
 }
